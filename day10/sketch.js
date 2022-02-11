@@ -98,11 +98,24 @@ function setupList(){
     const selectHistoryName = e.target.value;
     const catData=sessionStorage.getItem(selectHistoryName);
     i$ = fromJSON(catData);
-    //実行
+     //実行
     i$.setup();
     //テキストエリアに書く 
-    document.getElementById('code').value=catData.replace('\\','') ;//catData;
+    document.getElementById('code').value=catData;
   });
+
+  //テキストエリアを編集したときも更新する
+  const codeErea = document.getElementById('code');
+  codeErea.addEventListener('change', (e)=>{
+    //一旦キャンバスを削除
+    const element = document.querySelector('canvas');
+    element.remove();
+    //情報を取得してi$に読み込む
+    i$ = fromJSON(e.target.value);
+    //実行
+    i$.setup();
+  });
+
 }
 
 //関数を書き出せるようにする　参考　https://qiita.com/suetake/items/52ec9d22e978ceb3111c
