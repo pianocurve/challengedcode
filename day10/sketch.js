@@ -156,14 +156,8 @@ function setupDevice() {
         // 1回設定すればOKに
         permissionGranted = true;
       })
-  } else {
-    // ios 13以外    
-    permissionGranted = true;
-  }
 
-  if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
-    // ios 13 の場合
-    DeviceMotionEvent.requestPermission()
+      DeviceMotionEvent.requestPermission()
       .catch(() => {
         // 最初だけボタンを表示する
         let button = createButton("click to allow access to motion sensors");
@@ -176,8 +170,10 @@ function setupDevice() {
         // 1回設定すればOKに
         permissionMotionGranted = true;
       })
+
   } else {
     // ios 13以外    
+    permissionGranted = true;
     permissionMotionGranted = true;
   }
 
@@ -200,7 +196,7 @@ function requestAccess() {
 
 //ios 13でデバイスの設定をリクエストする
 function requestMotionAccess() {
-  DeviceOrientatiDeviceMotionEventonEvent.requestPermission()
+  DeviceMotionEvent.requestPermission()
     .then(response => {
       if (response == 'granted') {
         permissionMotionGranted = true;
