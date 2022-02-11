@@ -1,13 +1,4 @@
-// #AltEdu2022 day 4
-
-//人という漢字は人と人とが支えあってできている　
-//嘘らしいけど
-//"またあるとき、ローズウォーターは精神科医にこう言った、
-//「思うんだがね、あんたたちはそろそろ、
-//すてきな新しい嘘をたくさんこしらえなきゃいけないんじゃないか。
-//でないと、みんな生きていくのがいやんなっちゃうぜ」”
-//カートボネガット
-//そういうこと。
+// #AltEdu2022 day 5
 
 let i$ ={
 
@@ -23,23 +14,42 @@ let i$ ={
     createCanvas(i$.W,i$.H,WEBGL);
     //strokeCap(ROUND);
     angleMode(DEGREES);
-
+    //ortho(-200,200,-200,200,350,400),
     data=[
-      [[-0.19,-0.71,-0.21,-0.59,-0.49,-0.01],
-      [-0.55,0.18,-0.68,0.34,-0.9,0.74],
-      [-0.98,0.67,-0.96,0.72,-0.99,0.62],
-      [-1.01,0.52,-0.95,0.29,-0.88,0.15],
-      [-0.74,-0.11,-0.51,-0.24,-0.41,-0.21],
-      [-0.03,0.02,0.49,0.63,0.74,0.75],
-      [0.82,0.39,0.66,-0.08,-0.16,-0.89]],
+      [[-0.48,-0.88,0,-0.84,-0.41,0.1,-1,0,0],[-0.88,0.48,-0.07,-0.53,0.84,0,-0.03,1.2,0.55],[0.48,0.88,0,0.84,0.54,0,0.9,-0.3,0],[0.88,-0.48,0,0.54,-0.84,0,0,-1,0]]
 
-      [[-0.19,-0.71,-0.21,-0.59,-0.49,-0.01],
-      [-0.55,0.18,-0.68,0.34,-0.9,0.74],
-      [-0.98,0.67,-0.96,0.72,-0.99,0.62],
-      [-1.01,0.52,-0.95,0.29,-0.88,0.15],
-      [-0.74,-0.11,-0.51,-0.24,-0.41,-0.21],
-      [-0.03,0.02,0.49,0.63,0.74,0.75],
-      [0.82,0.39,0.66,-0.08,-0.16,-0.89]]
+      //[
+
+        // [-0.19,-0.71,0, -0.21,-0.59,0,  -0.49,-0.01,0  ],
+        // [-0.55, 0.18,0, -0.68, 0.34,0,  -0.90, 0.74,0.01  ],
+        // [-0.98, 0.67,.1,-0.96, 0.72,.2, -0.99, 0.62,0.1  ],
+        // [-1.01, 0.52,.4,-0.95, 0.29,.4,-0.88, 0.15,0.1  ],
+        // [-0.74,-0.11,.1,-0.51,-0.24,.01,-0.41,-0.21,0.01  ],
+        // [-0.03, 0.02, 0, 0.49, 0.63,0,  0.74, 0.75,0.01  ],
+        // [ 0.82, 0.39, 0, 0.66,-0.08,0,  -0.16,-0.89,0.01]
+      //],
+      
+      // [
+      //   [-0.19,-0.71,0, -0.21,-0.59,0,  -0.49,-0.01,0  ],
+      //   [-0.55, 0.18,0, -0.68, 0.34,0,  -0.90, 0.74,0.1  ],
+      //   [-0.98, 0.67,.1,-0.96, 0.72,.2, -0.99, 0.62,0.3  ],
+      //   [-1.01, 0.52,.4,-0.95, 0.29,.4,-0.88, 0.15,0.5  ],
+      //   [-0.74,-0.11,.3,-0.51,-0.24,.2,-0.41,-0.21,0.1  ],
+      //   [-0.03, 0.02, 0, 0.49, 0.63,0,  0.74, 0.75,0.2  ],
+      //   [ 0.82, 0.39, 0, 0.66,-0.08,0,  -0.16,-0.89,0.1]
+      // ],
+
+      // [
+      //   [-0.19,-0.71, 0, -0.21,-0.59, 0,  -0.49,-0.01,0  ],
+      //   [-0.55, 0.18, 0, -0.68, 0.34, 0,  -0.90, 0.74,0  ],
+      //   [-0.98, 0.67, 0,-0.96, 0.72,  0, -0.99,  0.62,0  ],
+      //   [-1.01, 0.52, 0,-0.95, 0.29,  0, -0.88,  0.15,0  ],
+      //   [-0.74,-0.11, 0,-0.51,-0.24,  0, -0.41, -0.21,0  ],
+      //   [-0.03, 0.02, 0, 0.49, 0.63,  0,  0.74,  0.75,0  ],
+      //   [ 0.82, 0.39, 0, 0.66,-0.08,  0,  -0.16,-0.89, 0]
+      // ],
+
+
 
     ]
     
@@ -48,59 +58,63 @@ let i$ ={
   },
 
   "draw":()=>{
-    ortho(-200,200,-200,200,350,400),
+
+    
     orbitControl();
  
     background(i$.bgcolor);
-    translate(i$.objX,i$.objY);
-  
-    push();
-    stroke(0);
-    //fill(i$.Color)
-    noFill()
-    currentData =bm.getBezier();
-    i$.drawBezier(currentData,100);
-    // for(i=1;i<100;i++){
-
-    //   translate(i$.objX+random(-200,200),i$.objY+random(-200,200));
-    //   i$.drawBezier(currentData,100);
-    // }
     
+    push();
+    translate(i$.objX,i$.objY,0);
+    
+    //normalMaterial();
+    stroke(0);
+    fill(i$.Color)
+    noFill()
+    //currentData =bm.getBezier();
+   // i$.drawBezier3D(currentData,100);
+    i$.drawBezier3D(data[0],100);
     pop()
   },
-  "drawBezier":(data, size)=>{
+
+  "drawBezier3D":(data, size)=>{
 
     //ここでは閉じた図形を書くので、最後のbezierのデータのアンカーポイントは開始と同じ。
     const lastb = data[data.length-1]
-    let x = lastb[4] * size;
-    let y = lastb[5] * size;
+    let x = lastb[6] * size;
+    let y = lastb[7] * size;
+    let z = lastb[8] * size;
+    
   
     beginShape();
-    vertex(x, y);
+    vertex(x, y,z);
     for(let i=0;i<data.length;i++){
       //最後は描かない（つなげない
       if(i != data.length-1){       
         bezierVertex(
-          data[i][0] * size, data[i][1] * size, 
-          data[i][2] * size, data[i][3] * size,
-          data[i][4] * size, data[i][5] * size 
+          data[i][0] * size, data[i][1] * size, data[i][2] * size,
+          data[i][3] * size, data[i][4] * size, data[i][5] * size,
+          data[i][6] * size, data[i][7] * size,data[i][8] * size,
         );
         for(let j = 0; j <= 30; j++){
           let t = j / 30;
-          let bx,by;
+          let bx,by,bz;
           if(i==0){
-            bx = bezierPoint(x, data[i][0] * size, data[i][2] * size, data[i][4] * size, t); // bezier 曲線上の x 座標を算出
-            by = bezierPoint(y, data[i][1] * size, data[i][3] * size, data[i][5] * size, t); // bezier 曲線上の y 座標を算出
+            bx = bezierPoint(x, data[i][0] * size, data[i][3] * size, data[i][6] * size, t); // bezier 曲線上の x 座標を算出
+            by = bezierPoint(y, data[i][1] * size, data[i][4] * size, data[i][7] * size, t); // bezier 曲線上の y 座標を算出
+            bz = bezierPoint(z, data[i][2] * size, data[i][5] * size, data[i][8] * size, t); // bezier 曲線上の y 座標を算出
   
           }else{
-            bx = bezierPoint(data[i-1][4] * size, data[i][0] * size, data[i][2] * size, data[i][4] * size, t); // bezier 曲線上の x 座標を算出
-            by = bezierPoint(data[i-1][5] * size, data[i][1] * size, data[i][3] * size, data[i][5] * size, t); // bezier 曲線上の y 座標を算出
+            bx = bezierPoint(data[i-1][6] * size, data[i][0] * size, data[i][3] * size, data[i][6] * size, t); // bezier 曲線上の x 座標を算出
+            by = bezierPoint(data[i-1][7] * size, data[i][1] * size, data[i][4] * size, data[i][7] * size, t); // bezier 曲線上の y 座標を算出
+            bz = bezierPoint(data[i-1][8] * size, data[i][2] * size, data[i][5] * size, data[i][8] * size, t); // bezier 曲線上の y 座標を算出
+            
           }
 
           //ellipse (bx, by, 5, 5); // 算出したxy座標上に円を描画
           push()
-          translate(bx,by,0);
-          sphere(5);
+          translate(bx,by,bz);
+          sphere(2);
           pop()
         }
       }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>サンプル</title>
+</head>
+<body>
+
+<h1>サンプル</h1>
+
+<p id="msg">ディスプレイのサイズと色の情報を表示します</p>
+
+<script>
+let element = document.getElementById('msg');
+
+let screenInfo = 
+'availWidth:' + screen.availWidth + '<br>' +
+'availHeight:' + screen.availHeight + '<br>' +
+'Width:' + screen.width + '<br>' +
+'Height:' + screen.height + '<br>' +
+'ColorDepth:' + screen.colorDepth + '<br>' +
+'PixelDepth:' + screen.pixelDepth;
+
+element.insertAdjacentHTML('afterend', '<p>' + screenInfo + '</p>');
+</script>
+
+</body>
+</html>
