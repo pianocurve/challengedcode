@@ -147,7 +147,7 @@ function setupDevice() {
     DeviceOrientationEvent.requestPermission()
       .catch(() => {
         // 最初だけボタンを表示する
-        let button = createButton("click to allow access to sensors");
+        let button = createButton("click to allow access to orientation sensors");
         button.style("font-size", "24px");
         button.center();
         button.mousePressed(requestAccess);
@@ -161,11 +161,47 @@ function setupDevice() {
     // ios 13以外    
     permissionGranted = true;
   }
+
+  if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
+    // ios 13 の場合
+    DeviceMotionEvent.requestPermission()
+      .catch(() => {
+        // 最初だけボタンを表示する
+        let button = createButton("click to allow access to motion sensors");
+        button.style("font-size", "24px");
+        button.center();
+        button.mousePressed(requestMotionAccess);
+        throw error;
+      })
+      .then(() => {
+        // 1回設定すればOKに
+        permissionGranted = true;
+      })
+  } else {
+    // ios 13以外    
+    permissionGranted = true;
+  }
+
+
 }
 
 //ios 13でデバイスの設定をリクエストする
 function requestAccess() {
   DeviceOrientationEvent.requestPermission()
+    .then(response => {
+      if (response == 'granted') {
+        permissionGranted = true;
+      } else {
+        permissionGranted = false;
+      }
+    })
+    .catch(console.error);
+  this.remove();
+}
+
+//ios 13でデバイスの設定をリクエストする
+function requestMotionAccess() {
+  DeviceOrientatiDeviceMotionEventonEvent.requestPermission()
     .then(response => {
       if (response == 'granted') {
         permissionGranted = true;
