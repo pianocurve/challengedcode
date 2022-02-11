@@ -174,11 +174,11 @@ function setupDevice() {
       })
       .then(() => {
         // 1回設定すればOKに
-        permissionGranted = true;
+        permissionMotionGranted = true;
       })
   } else {
     // ios 13以外    
-    permissionGranted = true;
+    permissionMotionGranted = true;
   }
 
 
@@ -203,9 +203,9 @@ function requestMotionAccess() {
   DeviceOrientatiDeviceMotionEventonEvent.requestPermission()
     .then(response => {
       if (response == 'granted') {
-        permissionGranted = true;
+        permissionMotionGranted = true;
       } else {
-        permissionGranted = false;
+        permissionMotionGranted = false;
       }
     })
     .catch(console.error);
