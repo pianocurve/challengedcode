@@ -26,6 +26,7 @@ let i$ ={
 
 //p5の関数から実行
 function setup() {
+  setupDevice();
   saveIdru();
   setupList();
   i$.setup();
@@ -137,3 +138,41 @@ function fromJSON(value){
   });
 }
 
+
+//参考　https://openprocessing.org/sketch/1368153 Tilt painting by kikpond 
+//デバイスの設定を行う関数
+function setupDevice() {
+  if (typeof(DeviceOrientationEvent) !== 'undefined' && typeof(DeviceOrientationEvent.requestPermission) === 'function') {
+    // ios 13 の場合
+    DeviceOrientationEvent.requestPermission()
+      .catch(() => {
+        // 最初だけボタンを表示する
+        let button = createButton("click to allow access to sensors");
+        button.style("font-size", "24px");
+        button.center();
+        button.mousePressed(requestAccess);
+        throw error;
+      })
+      .then(() => {
+        // 1回設定すればOKに
+        permissionGranted = true;
+      })
+  } else {
+    // ios 13以外    
+    permissionGranted = true;
+  }
+}
+
+//ios 13でデバイスの設定をリクエストする
+function requestAccess() {
+  DeviceOrientationEvent.requestPermission()
+    .then(response => {
+      if (response == 'granted') {
+        permissionGranted = true;
+      } else {
+        permissionGranted = false;
+      }
+    })
+    .catch(console.error);
+  this.remove();
+}
