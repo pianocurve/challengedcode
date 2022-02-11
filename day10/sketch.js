@@ -5,7 +5,7 @@
 let i$ ={
   
   "setup":()=>{
-    createCanvas(400,400);
+    createCanvas(400,400,WEBGL);
     colorMode(HSB)
   },
 
@@ -14,8 +14,11 @@ let i$ ={
     background(359,0,100,1);
     stroke(255);
     fill(341,69,82,1);
-    translate(width/2,height/2)
-    ellipse(0,0,100)
+    rotateX(radians(rotationX));
+    rotateY(radians(rotationY));
+    //translate(width/2,height/2)
+    sphere(100);
+    // ellipse(0,0,100)
 
   },
 
