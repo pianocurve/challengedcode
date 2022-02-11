@@ -16,7 +16,7 @@ let i$ ={
     fill(341,69,82,1);
     rotateX(radians(rotationX));
     rotateY(radians(rotationY));
-    translate(accelerationX,height/2)
+    translate(accelerationX*50,accelerationY*50)
     sphere(100);
 
   },
