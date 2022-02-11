@@ -16,9 +16,8 @@ let i$ ={
     fill(341,69,82,1);
     rotateX(radians(rotationX));
     rotateY(radians(rotationY));
-    //translate(width/2,height/2)
+    translate(accelerationX,height/2)
     sphere(100);
-    // ellipse(0,0,100)
 
   },
 
