@@ -1,6 +1,4 @@
-const MUSIC_FILE_PATH ='PianoPeace0141031.wav';
-const PLAYBUTTON='playbutton';
-
+//Day 18
 let isPlaying=false;
 
 let oscNum=4;
@@ -8,52 +6,22 @@ let osc=new Array(oscNum);
 let env=new Array(oscNum);
 let currentOsc=0;
 
-
-let sound;
-
 function setup() {
 
+  pixelDensity(1);
   frameRate(60);
-  
-  myCanvas = createCanvas(2560, 1280);
-  myCanvas.style('z-index:-1');
-  
-  const elt = document.getElementById(PLAYBUTTON);
-  elt.addEventListener('click',function(){
-    if(sound==null){
-      sound = loadSound(MUSIC_FILE_PATH,onSoundLoadSuccess,null,onSoundLoadProgress);
-    }else{
-      if(isPlaying == false) {
-        
-        //sound.play();
-        this.value="■ Stop music";
-        isPlaying = true;
-        
-        for(let i=0;i<oscNum;i++){
-          osc[i].start();
-          env[i].ramp(osc[i], 0, 0, 0);
-        };
-          
-        loop();
 
-      }else{
-        //sound.pause();
-        this.value="▶︎ Play music";
-        isPlaying = false;
-        osc.forEach(o=>{
-          o.stop();
-        });
-        noLoop();
-      }
-    }
-    
-  });
+  
+  myCanvas = createCanvas(2560,1440 );
+  myCanvas.style('width:95vw;height:auto;');
+  
 
 
   x=0;//x軸はここでは時間軸
   noteons={}// #note on のノートナンバーと x 時刻を保管
 
   SCOREROW=akari;
+
   PLAYTIME=akari[0].length;
 
   background(0);
@@ -138,7 +106,7 @@ function drawAkari(){
     //#ノートon のX軸を保管
     noteons[n] = x;
     
-    rect(x % width, 127 - n + (Math.floor(x/width)*128),veros[0]/10,veros[0]/10);
+    rect(x % width, 127 - n + (Math.floor(x/width)*128),veros[0]/7,veros[0]/7);
   
   });
 
@@ -154,24 +122,56 @@ function drawAkari(){
 
   x += 1;
 
-  if (x > PLAYTIME){
-    x=0;
+  if (x >= PLAYTIME){
+    x=0; 
+    background(0);
+    isPlaying = false;
+    osc.forEach(o=>{
+      o.stop();
+    });
+    noLoop();
+    
   }
 
 }
+// キーが押された瞬間の処理
+function keyPressed() {
+  switch (keyCode){
+    case 70: //f
+      let fs = fullscreen();
+      fullscreen(!fs);
+      break;
 
 
-function onSoundLoadSuccess(e){ 
-  const elt = document.getElementById(PLAYBUTTON);
-  elt.value="▶︎ Play music";
-  elt.removeAttribute("disabled")
-  console.log("load sound success",e);
+    case 80://p サウンド再生
+      
+      if(isPlaying == false) {
+          
+        //sound.play();
+
+        isPlaying = true;
+        
+        for(let i=0;i<oscNum;i++){
+          osc[i].start();
+          env[i].ramp(osc[i], 0, 0, 0);
+        };
+          
+        loop();
+
+      }else{
+        //sound.pause();
+
+        isPlaying = false;
+        osc.forEach(o=>{
+          o.stop();
+        });
+        noLoop();
+        
+      }
+      break;
+
+    default:
+  }
 
 }
-function onSoundLoadProgress(e){
-  const elt = document.getElementById(PLAYBUTTON);
-  elt.value="Now loading..." + int(e * 100) +"%" ;
- // console.log("load sound progress",e);
-}
-
   
